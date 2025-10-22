@@ -33,4 +33,11 @@ jsUser.greeting = function(){
     console.log("Hello Pulkit")
 }
 
-console.log(jsUser.greeting())
+jsUser.greetingTwo = function(){
+    console.log(`Hello JS User, ${this.name}`)
+}
+
+// Call the method directly — the function itself logs "Hello Pulkit".
+jsUser.greeting()
+
+jsUser.greetingTwo()
