@@ -47,3 +47,5 @@ console.log(myn2)
 
 //slice vs splice
 //
+
+
