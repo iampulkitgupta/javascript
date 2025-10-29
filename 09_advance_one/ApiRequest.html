@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .social-card {
+            font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+            background-color: #fff;
+        }
+
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #f0f0f0;
+        }
+
+        .stats {
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .follower-count {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #262626;
+        }
+    </style>
+</head>
+<body style="background-color: #212121; color: #FFF">    
+    <button id="show">Show Profile</button>
+</body>       
+<script>
+    let data;
+    let follower;
+    let photo;
+    let stats;
+    let profilePhoto; 
+    const requestUrl = "https://api.github.com/users/hiteshchoudhary"
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', requestUrl);      
+    xhr.send();
+    xhr.onreadystatechange = function(){
+        console.log(xhr.readyState);   
+        if(xhr.readyState === 4){
+            data = JSON.parse(this.responseText)
+            follower = data.followers;
+            photo = data.avatar_url;
+            stats = document.querySelector(".follower-count");
+            profilePhoto = document.querySelector(".profile-photo")  
+            // profilePhoto.setAttribute('src', photo)            
+            // stats.innerHTML = follower;            
+        } 
+    }  
+
+    function showProfile(){
+        const body = document.querySelector('body');
+        console.log(body)
+        body.innerHTML = `
+        <div class="social-card">
+            <img src=${photo} alt="Profile Photo" class="profile-photo">
+            <div class="stats">
+                <p><span class="follower-count">${follower}</span> followers</p>
+            </div>
+        </div>
+        <button id="show">Show Profile</button>
+        `
+    }
+
+    document.querySelector("#show").addEventListener('click', showProfile);
+</script>
+</html>
