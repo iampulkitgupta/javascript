@@ -6,27 +6,49 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Aysnc JS Part 2</h1>
+    <h1>setInterval/h1>
     <button id="start">Start</button>
     <button id="stop">Stop</button>
 </body>
 <script>
     const sayDate = function(str){
         console.log(str, Date.now())
-    }        
+    }     
     
-    let IntervalId;
+    const randomColor = function(){
+        const letters = "0123456789ABCDEF";
+        let color = "#";        
+        for (let i = 0; i < 6; i++ ){
+            color += letters[Math.floor(Math.random()*16)]
+        }
+        return color;
+    }    
+       
+    let intervalId;
 
-    function startInterval(){
-       intervalId =  setInterval(sayDate, 1000, "hi")
-       console.log('Start');
+    function changeBgColor(){
+        document.body.style.backgroundColor=randomColor();
+    }
+
+    function startInterval(){       
+        if(!intervalId){
+            intervalId =  setInterval(changeBgColor, 1000);
+        }
+    //    console.log('Start');
+    //    console.log(intervalId);
     }
 
     function stopInterval(){
         clearInterval(intervalId);
-        console.log('Stop');
+        intervalId = null;
+        // console.log('Stop');
+        // console.log(intervalId);
     }
     document.querySelector("#stop").addEventListener('click', stopInterval);
     document.querySelector("#start").addEventListener('click', startInterval);
+
+
+
+
 </script>
 </html>
